@@ -9,4 +9,12 @@ Framework untuk membuat server HTTP dengan <a href="https://deno.land/" target="
 > informasi cara menggunakan framework indenosia/server
 
 # Kontribusi
-> informasi tata cara kontribusi
+Project framework ini adalah untuk menambah kontribusi developer dari Indonesia untuk dunia opensource,
+dengan harapan dapat memicu kesadaran akan manfaat berkontribusi terhadap pengembangan software berbasis opensource.
+
+### Tata Cara
+1. Lakukan **fork** pada *repository* ini.
+2. Perubahan dapat Anda lakukan pada repository hasil fork.
+3. Mengirim perubahan dengan membuat sebuah **pull request**.
+
+Selamat, Anda termasuk orang hebat yang turut berkontribusi!
