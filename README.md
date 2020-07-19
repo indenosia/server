@@ -6,7 +6,26 @@
 Framework untuk membuat server HTTP dengan <a href="https://deno.land/" target="_blank">Deno</a>
 
 # Cara Menggunakan
-> informasi cara menggunakan framework indenosia/server
+```typescript
+import { Server, Request, Response } from 'https://denoland.id/x/indenosia/mod.ts';
+
+const app: Server = new Server();
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Inodesia, web framework nya orang Indonesia');
+});
+
+app.listen({
+  port: 8080,
+}, () => {
+  console.log('app sedang berjalan');
+})
+```
+
+<details>
+  <summary>Contoh Lain</summary>
+  Lihat contoh lainnya <a href="https://github.com/indenosia/server/tree/master/examples" target="_blank">di sini</a>!
+</details>
 
 # Kontribusi
 Project framework ini adalah untuk menambah kontribusi developer dari Indonesia untuk dunia opensource,
