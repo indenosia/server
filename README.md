@@ -18,3 +18,8 @@ dengan harapan dapat memicu kesadaran akan manfaat berkontribusi terhadap pengem
 3. Mengirim perubahan dengan membuat sebuah **pull request**.
 
 Selamat, Anda termasuk orang hebat yang turut berkontribusi!
+
+# Todo
+- [x] Server
+- [x] Router
+- [ ] Nested Router
