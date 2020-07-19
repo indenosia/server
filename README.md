@@ -22,4 +22,6 @@ Selamat, Anda termasuk orang hebat yang turut berkontribusi!
 # Todo
 - [x] Server
 - [x] Router
-- [ ] Nested Router
+- [x] Nested Router
+- [x] Get Request Header
+- [x] Custom Response Header
