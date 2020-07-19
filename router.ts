@@ -1,3 +1,6 @@
+import { AppModules } from './application.ts';
+import { MetaData } from './metadata.ts';
+
 import { Response } from './response.ts';
 import { Request } from './request.ts';
 
@@ -52,13 +55,13 @@ export class Router {
     }
   }
 
-  createURL(req: Request): URL {
+  protected createURL(req: Request): URL {
     let proto: string = `${req.proto.toLocaleLowerCase().split('/')[0]}://`;
     const addr: any = req.conn.localAddr;
     return new URL(`${proto}${addr.hostname}:${addr.port}${req.url}`);
   }
 
-  createRouteRegex(url: string) {
+  protected createRouteRegex(url: string) {
     const params = url.match(/:([a-z]+)/gi);
     const regex = url.replace(/:[a-z]+/gi, '([0-9a-z]+)').replace('/', '\\/');
     return {
@@ -67,6 +70,15 @@ export class Router {
     };
   }
 
+  register(modules: AppModules) {
+    const { controllers } = modules;
+    const meta = MetaData.objects().controllers;
+    controllers.forEach((controller) => {
+      const { url, router } = meta[controller.name];
+      this.use(url || '/', router || new Router());
+    });
+    return this;
+  }
 
   protected registerRoute(method: string, url: string, handlers: Function[]) {
     const { regex, params } = this.createRouteRegex(url);
