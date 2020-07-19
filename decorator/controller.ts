@@ -1,7 +1,7 @@
-import { MetaData } from '../metadata/index.ts';
+import { MetaData } from '../metadata.ts';
 
-export const Controller = (url: string) => {
+export const Controller = (url?: string) => {
   return (constructor: Function) => {
-    MetaData.addController(constructor.name, url, constructor);
+    MetaData.addController(constructor.name, url || '', constructor);
   };
 };
