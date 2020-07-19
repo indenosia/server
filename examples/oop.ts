@@ -1,14 +1,21 @@
-import { Server } from '../mod.ts';
+import { Server, AppModules, Request, Response } from '../mod.ts';
 import { Controller, GET } from '../decorator.ts';
-
-// THIS IS CAN NOT RUN YET
 
 const app: Server = new Server();
 
-@Controller('/')
+@Controller()
 class IndexController {
   @GET()
-  index() {
+  index(req: Request, res: Response) {
+    res.send('halo');
+  }
+}
+
+@Controller('/about')
+class AboutController {
+  @GET()
+  index(req: Request, res: Response) {
+    res.send('about');
   }
 
   @GET('/:id')
@@ -16,15 +23,16 @@ class IndexController {
   }
 }
 
-app.modules({
+const modules: AppModules = {
   controllers: [
-    IndexController
+    IndexController,
+    AboutController,
   ],
   inject: [],
-});
+};
 
-app.listen({
-  port: 8080,
-}, () => {
-  console.log('app running bos');
-});
+app
+  .register(modules)
+  .listen({ port: 8080 }, () => {
+    console.log('app running bos');
+  });
