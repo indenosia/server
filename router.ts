@@ -67,7 +67,8 @@ export class Router {
     };
   }
 
-  register(method: string, url: string, handlers: Function[]) {
+
+  protected registerRoute(method: string, url: string, handlers: Function[]) {
     const { regex, params } = this.createRouteRegex(url);
     this.routes[method].push({
       url,
@@ -78,19 +79,19 @@ export class Router {
   }
 
   get(url: string, ...handlers: Function[]) {
-    this.register('GET', url, handlers);
+    this.registerRoute('GET', url, handlers);
   }
 
   post(url: string, ...handlers: Function[]) {
-    this.register('POST', url, handlers);
+    this.registerRoute('POST', url, handlers);
   }
 
   put(url: string, ...handlers: Function[]) {
-    this.register('PUT', url, handlers);
+    this.registerRoute('PUT', url, handlers);
   }
 
   delete(url: string, ...handlers: Function[]) {
-    this.register('DELETE', url, handlers);
+    this.registerRoute('DELETE', url, handlers);
   }
 
   protected match(req: Request): RouteAndHandler[] {
