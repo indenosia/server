@@ -23,5 +23,4 @@ Selamat, Anda termasuk orang hebat yang turut berkontribusi!
 - [x] Server
 - [x] Router
 - [x] Nested Router
-- [x] Get Request Header
-- [x] Custom Response Header
+- [] Unit Testing
