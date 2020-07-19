@@ -1,5 +1,5 @@
 <div>
-  <img src="https://raw.githubusercontent.com/indenosia/server/master/docs/assets/logo.png" alt="Indenosia" width="25%" />
+  <img src="https://user-images.githubusercontent.com/16364286/87875875-7630b080-c9fe-11ea-84cb-724cbf80f4f7.png" alt="Indenosia" width="25%" />
 </div>
 
 # indenosia/server
