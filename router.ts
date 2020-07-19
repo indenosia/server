@@ -2,9 +2,10 @@ import { Response } from './response.ts';
 import { Request } from './request.ts';
 
 export interface RouteAndHandler {
-  url: string,
-  params?: any[],
-  handlers: Function[],
+  url: string
+  regex: string
+  params?: any[]
+  handlers: Function[]
 }
 
 export interface Routes {
@@ -25,8 +26,30 @@ export class Router {
     };
   }
 
-  use(middleware: Function) {
-    this.middlewares.push(middleware);
+  use(middleware: Function): void;
+  use(url: string, router: Router): void;
+
+  use(url: any, middleware?: any) {
+    if (!middleware) {
+      middleware = url;
+      url = null;
+    }
+
+    if (typeof url === 'string' && middleware instanceof Router) {
+      Object.keys(middleware.routes).forEach((method: string) => {
+        middleware.routes[method].forEach((route: any) => {
+          if (route.url === '\\/') route.url = '';
+          url = `${url}${route.url}`;
+          const regex = this.createRouteRegex(url);
+          route.url = url;
+          route.regex = regex.regex;
+          route.params = regex.params;
+          this.routes[method].push(route);
+        });
+      });
+    } else {
+      this.middlewares.push(middleware);
+    }
   }
 
   createURL(req: Request): URL {
@@ -47,7 +70,8 @@ export class Router {
   register(method: string, url: string, handlers: Function[]) {
     const { regex, params } = this.createRouteRegex(url);
     this.routes[method].push({
-      url: regex,
+      url,
+      regex: regex!,
       params: params!,
       handlers,
     });
@@ -74,14 +98,14 @@ export class Router {
     req.params = {};
     let routes: RouteAndHandler[] = this.routes[req.method];
     routes = routes.filter(route => {
-      const re = new RegExp(`^${route.url}\\/?$`, 'ig');
+      const re = new RegExp(`^${route.regex}\\/?$`, 'ig');
       const test = re.test(pathname);
       return test;
     });
 
     if (routes.length >= 1) {
       for (let route of routes) {
-        let [, ...paramValues] = new RegExp(route.url, 'ig').exec(pathname!)!;
+        let [, ...paramValues] = new RegExp(route.regex, 'ig').exec(pathname!)!;
         route.params?.forEach((param: any, index: any) => {
           param = param.replace(':', '');
           req.params[param] = paramValues[index];
