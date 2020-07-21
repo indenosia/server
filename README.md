@@ -6,6 +6,8 @@
 Framework untuk membuat server HTTP dengan <a href="https://deno.land/" target="_blank">Deno</a>
 
 # Cara Menggunakan
+1. Buatlah file dengan ekstensi `.ts`, contoh `server.ts`.
+2. Ketikkan atau copy-paster kode program berikut ke file tersebut.
 ```typescript
 import { Server, Request, Response } from 'https://denoland.id/x/indenosia/mod.ts';
 
@@ -20,6 +22,11 @@ app.listen({
 }, () => {
   console.log('app sedang berjalan');
 })
+```
+3. Simpan file.
+4. Jalankan melalui terminal (CLI) dengan menjalankan perintah berikut.
+```bash
+deno --allow-all server.ts
 ```
 
 <details>
