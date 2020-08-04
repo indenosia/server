@@ -28,7 +28,6 @@ const modules: AppModules = {
     IndexController,
     AboutController,
   ],
-  inject: [],
 };
 
 app
