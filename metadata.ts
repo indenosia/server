@@ -2,30 +2,36 @@ import { Router } from './router.ts';
 import { ControllerMetadata } from './metadata/controller.ts';
 
 export class MetaData {
-  static controllers: {[key: string]: ControllerMetadata} = {};
+  static controllers: {[key: string]: any} = {};
+  static methods: any[] = [];
+
   static objects() {
     return {
       controllers: this.controllers,
     };
   }
 
-  static addController(name: string, routeurl: string, target: Function) {
-    if (!this.controllers[name]) {
-      this.controllers[name] = {};
-    }
-    this.controllers[name].url = routeurl;
-    this.controllers[name].target = target;
-    this.controllers[name].router = new Router();
+  static addController(name: string, routeurl: string, target: any) {
+    const meta: any = {};
+    meta.url = routeurl;
+    meta.router = new Router();
+    meta.methods = []
+    this.methods.filter(method => method.controller === name).forEach(method => {
+      meta.methods.push(method);
+    });
 
-    if (!this.controllers[name].methods) {
-      this.controllers[name].methods = [];
-    }
+    if (!this.controllers[name]) this.controllers[name] = new target();
+    this.controllers[name].meta = meta;
 
-    let { url, router, methods } = this.controllers[name];
-    methods?.forEach((method) => {
+    this.buildRoute(name, this.controllers[name].meta);
+  }
+
+  static buildRoute(name: string, meta: any) {
+    let { url, router, methods } = meta;
+    methods.forEach((method: any) => {
       switch (method.method) {
         case 'GET':
-          router?.get(`${method.url}` || '', method.target || new Function());
+          router.get(`${method.url}` || '', method.target.bind(this.controllers[name]) || new Function());
           break;
         default:
           break;
@@ -34,17 +40,12 @@ export class MetaData {
   }
 
   static addMethod(method: string, controller: string, url: string, target: Function) {
-    if (!this.controllers[controller]) {
-      this.controllers[controller] = {};
-    }
-    if (!this.controllers[controller].methods) {
-      this.controllers[controller].methods = [];
-    }
-
-    this.controllers[controller].methods?.push({
+    this.methods.push({
+      controller,
       method,
       url,
       target,
     });
   }
+
 }

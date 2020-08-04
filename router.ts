@@ -74,8 +74,8 @@ export class Router {
     const { controllers } = modules;
     const meta = MetaData.objects().controllers;
     controllers.forEach((controller) => {
-      const { url, router } = meta[controller.name];
-      this.use(url || '/', router || new Router());
+      const { url, router } = meta[controller.name].meta;
+      this.use(url, router || new Router());
     });
     return this;
   }
