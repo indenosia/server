@@ -1,3 +1,21 @@
+// this file for read decorator inside class
+//
+// its same with path route, example you
+// have route
+// - /example GET
+//
+// you just to create
+//
+// class Example {
+//    @GET("/example")
+//    example(){
+//    
+//    }
+// }
+//
+// see https://www.typescriptlang.org/docs/handbook/decorators.html
+// for documentation decorator typscript
+
 import { MetaData } from '../metadata.ts';
 
 export const GET = (url?: string) => {
