@@ -26,7 +26,7 @@ app.listen({
 3. Simpan file.
 4. Jalankan melalui terminal (CLI) dengan menjalankan perintah berikut.
 ```bash
-deno --allow-all server.ts
+deno run --allow-all server.ts
 ```
 
 <details>
